@@ -297,6 +297,15 @@
 {% endif %}
 
 <div class="container">
+    {% if request.path != '/menu' and session.usuario %}
+    <div style="margin-bottom: 20px;">
+        <a href="/menu" style="display:inline-block; padding:8px 20px; background:#fff; color:#000;
+           border-radius:4px; text-decoration:none; font-weight:bold; font-size:13px;">
+           ← Regresar al Menú
+        </a>
+    </div>
+    {% endif %}
+
     {% block content %}{% endblock %}
 </div>
 

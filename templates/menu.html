@@ -3,34 +3,9 @@
 
 <h2>MENÚ PRINCIPAL</h2>
 
-<p style="color: #aaa; margin-bottom: 30px;">Bienvenido, <strong style="color:#fff">{{ usuario }}</strong>. Selecciona una opción del menú superior.</p>
-
-<div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
-
-    <div style="background:#111; border:1px solid #333; border-radius:8px; padding:25px; width:280px;">
-        <h3 style="margin-bottom:15px;">👤 Clientes</h3>
-        <a href="/clientes/altas" style="display:block; color:#aaa; text-decoration:none; padding:8px 0; border-bottom:1px solid #222;">➕ Altas</a>
-        <a href="/clientes/consultas" style="display:block; color:#aaa; text-decoration:none; padding:8px 0; border-bottom:1px solid #222;">🔍 Consultas</a>
-        <a href="/clientes/modificaciones" style="display:block; color:#aaa; text-decoration:none; padding:8px 0; border-bottom:1px solid #222;">✏️ Modificaciones</a>
-        <a href="/clientes/bajas" style="display:block; color:#aaa; text-decoration:none; padding:8px 0;">🗑️ Bajas</a>
-    </div>
-
-    <div style="background:#111; border:1px solid #333; border-radius:8px; padding:25px; width:280px;">
-        <h3 style="margin-bottom:15px;">🛒 Ventas</h3>
-        <a href="/ventas/altas" style="display:block; color:#aaa; text-decoration:none; padding:8px 0; border-bottom:1px solid #222;">➕ Altas</a>
-        <a href="/ventas/consultas" style="display:block; color:#aaa; text-decoration:none; padding:8px 0; border-bottom:1px solid #222;">🔍 Consultas</a>
-        <a href="/ventas/modificaciones" style="display:block; color:#aaa; text-decoration:none; padding:8px 0; border-bottom:1px solid #222;">✏️ Modificaciones</a>
-        <a href="/ventas/bajas" style="display:block; color:#aaa; text-decoration:none; padding:8px 0;">🗑️ Bajas</a>
-    </div>
-
-    <div style="background:#111; border:1px solid #333; border-radius:8px; padding:25px; width:280px;">
-        <h3 style="margin-bottom:15px;">📦 Productos</h3>
-        <a href="/productos/altas" style="display:block; color:#aaa; text-decoration:none; padding:8px 0; border-bottom:1px solid #222;">➕ Altas</a>
-        <a href="/productos/consultas" style="display:block; color:#aaa; text-decoration:none; padding:8px 0; border-bottom:1px solid #222;">🔍 Consultas</a>
-        <a href="/productos/modificaciones" style="display:block; color:#aaa; text-decoration:none; padding:8px 0; border-bottom:1px solid #222;">✏️ Modificaciones</a>
-        <a href="/productos/bajas" style="display:block; color:#aaa; text-decoration:none; padding:8px 0;">🗑️ Bajas</a>
-    </div>
-
-</div>
+<p style="color: #aaa; margin-top: 20px; font-size: 15px;">
+    Bienvenido, <strong style="color:#fff">{{ usuario }}</strong>.
+    Selecciona una opción del menú superior para comenzar.
+</p>
 
 {% endblock %}
