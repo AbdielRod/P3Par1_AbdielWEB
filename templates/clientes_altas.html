@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>ALTAS - CLIENTES</h2>
+
+{% if error %}
+<div class="alert-error">{{ error }}</div>
+{% endif %}
+{% if exito %}
+<div class="alert-success">{{ exito }}</div>
+{% endif %}
+
+<form method="POST">
+    <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" name="nombre" placeholder="Ej: Juan" required>
+    </div>
+    <div class="form-group">
+        <label>Apellido Paterno</label>
+        <input type="text" name="ap_paterno" placeholder="Ej: García" required>
+    </div>
+    <div class="form-group">
+        <label>Apellido Materno</label>
+        <input type="text" name="ap_materno" placeholder="Ej: López" required>
+    </div>
+    <div class="form-group">
+        <label>Sexo</label>
+        <div class="radio-group">
+            <label><input type="radio" name="sexo" value="M" checked> Masculino</label>
+            <label><input type="radio" name="sexo" value="F"> Femenino</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Teléfono (10 dígitos)</label>
+        <input type="text" name="telefono" placeholder="Ej: 5512345678" required>
+    </div>
+    <button type="submit" class="btn btn-white">GUARDAR</button>
+</form>
+
+{% endblock %}

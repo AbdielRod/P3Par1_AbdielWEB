@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - P3Par1_Abdiel</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .login-box {
+            background-color: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 50px 40px;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+        .form-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: #aaa;
+            font-size: 13px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px 14px;
+            background-color: #1a1a1a;
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #888;
+        }
+        .btn-login {
+            width: 100%;
+            padding: 11px;
+            background-color: #fff;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+        .btn-login:hover { background-color: #ddd; }
+        .alert-error {
+            background-color: #2a0000;
+            border: 1px solid #ff4444;
+            color: #ff6666;
+            padding: 10px 16px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+        .hint {
+            color: #555;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h1>INICIAR SESIÓN</h1>
+
+        {% if error %}
+        <div class="alert-error">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST">
+            <div class="form-group">
+                <label>Usuario (LL_NN#)</label>
+                <input type="text" name="usuario" placeholder="Ej: AV_12#" required>
+            </div>
+            <div class="form-group">
+                <label>Password (@NN#LL#)</label>
+                <input type="password" name="password" placeholder="Ej: @12#Av#" required>
+            </div>
+            <button type="submit" class="btn-login">ENTRAR</button>
+        </form>
+
+        <p class="hint">Usuario: LL_NN# &nbsp;|&nbsp; Password: @NN#LL#</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>MODIFICACIONES - PRODUCTOS</h2>
+
+{% if error %}
+<div class="alert-error">{{ error }}</div>
+{% endif %}
+{% if exito %}
+<div class="alert-success">{{ exito }}</div>
+{% endif %}
+
+<form method="POST">
+    <div class="form-group">
+        <label>Clave</label>
+        <input type="text" name="clave" id="clave" readonly
+               style="background:#2a2a2a; cursor:not-allowed;">
+    </div>
+    <div class="form-group">
+        <label>Descripción</label>
+        <input type="text" name="descripcion" id="descripcion"
+               placeholder="Selecciona un producto de la tabla">
+    </div>
+    <div class="form-group">
+        <label>Precio Unitario</label>
+        <input type="text" name="p_unitario" id="p_unitario">
+    </div>
+    <div class="form-group">
+        <label>Existencias</label>
+        <input type="text" name="existencias" id="existencias">
+    </div>
+    <button type="submit" class="btn btn-white">GUARDAR MODIFICACIÓN</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Clave</th>
+            <th>Descripción</th>
+            <th>Precio Unit.</th>
+            <th>Existencias</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in productos %}
+        <tr onclick="seleccionar({{ p[0] }}, '{{ p[1] }}', {{ p[2] }}, {{ p[3] }})"
+            id="row_{{ p[0] }}">
+            <td>{{ p[0] }}</td>
+            <td>{{ p[1] }}</td>
+            <td>${{ "%.2f"|format(p[2]) }}</td>
+            <td>{{ p[3] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+function seleccionar(clave, descripcion, precio, existencias) {
+    document.querySelectorAll('tr').forEach(r => r.classList.remove('selected'));
+    document.getElementById('row_' + clave).classList.add('selected');
+    document.getElementById('clave').value = clave;
+    document.getElementById('descripcion').value = descripcion;
+    document.getElementById('p_unitario').value = precio;
+    document.getElementById('existencias').value = existencias;
+    window.scrollTo(0, 0);
+}
+</script>
+
+{% endblock %}

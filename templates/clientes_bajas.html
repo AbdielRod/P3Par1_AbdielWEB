@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>BAJAS - CLIENTES</h2>
+
+{% if error %}
+<div class="alert-error">{{ error }}</div>
+{% endif %}
+{% if exito %}
+<div class="alert-success">{{ exito }}</div>
+{% endif %}
+
+<form method="POST" id="formBaja" onsubmit="return confirmar()">
+    <div class="form-group">
+        <label>Cliente seleccionado</label>
+        <input type="text" name="no_cliente" id="no_cliente" readonly
+               style="background:#2a2a2a; cursor:not-allowed;"
+               placeholder="Selecciona un cliente de la tabla">
+    </div>
+    <button type="submit" class="btn btn-white">ELIMINAR</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>No. Cliente</th>
+            <th>Nombre</th>
+            <th>Ap. Paterno</th>
+            <th>Ap. Materno</th>
+            <th>Sexo</th>
+            <th>Teléfono</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for c in clientes %}
+        <tr onclick="seleccionar({{ c[0] }})" id="row_{{ c[0] }}">
+            <td>{{ c[0] }}</td>
+            <td>{{ c[1] }}</td>
+            <td>{{ c[2] }}</td>
+            <td>{{ c[3] }}</td>
+            <td>{{ c[4] }}</td>
+            <td>{{ c[5] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+function seleccionar(no) {
+    document.querySelectorAll('tr').forEach(r => r.classList.remove('selected'));
+    document.getElementById('row_' + no).classList.add('selected');
+    document.getElementById('no_cliente').value = no;
+}
+function confirmar() {
+    const no = document.getElementById('no_cliente').value;
+    if (!no) { alert('Selecciona un cliente de la tabla.'); return false; }
+    return confirm('¿Eliminar cliente ' + no + '? Se eliminarán también sus ventas.');
+}
+</script>
+
+{% endblock %}

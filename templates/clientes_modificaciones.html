@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>MODIFICACIONES - CLIENTES</h2>
+
+{% if error %}
+<div class="alert-error">{{ error }}</div>
+{% endif %}
+{% if exito %}
+<div class="alert-success">{{ exito }}</div>
+{% endif %}
+
+<form method="POST" id="formMod">
+    <div class="form-group">
+        <label>No. Cliente</label>
+        <input type="text" name="no_cliente" id="no_cliente" readonly
+               style="background:#2a2a2a; cursor:not-allowed;">
+    </div>
+    <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" name="nombre" id="nombre" placeholder="Selecciona un cliente de la tabla">
+    </div>
+    <div class="form-group">
+        <label>Apellido Paterno</label>
+        <input type="text" name="ap_paterno" id="ap_paterno">
+    </div>
+    <div class="form-group">
+        <label>Apellido Materno</label>
+        <input type="text" name="ap_materno" id="ap_materno">
+    </div>
+    <div class="form-group">
+        <label>Sexo</label>
+        <div class="radio-group">
+            <label><input type="radio" name="sexo" id="sexo_m" value="M" checked> Masculino</label>
+            <label><input type="radio" name="sexo" id="sexo_f" value="F"> Femenino</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Teléfono</label>
+        <input type="text" name="telefono" id="telefono">
+    </div>
+    <button type="submit" class="btn btn-white">GUARDAR MODIFICACIÓN</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>No. Cliente</th>
+            <th>Nombre</th>
+            <th>Ap. Paterno</th>
+            <th>Ap. Materno</th>
+            <th>Sexo</th>
+            <th>Teléfono</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for c in clientes %}
+        <tr onclick="seleccionar({{ c[0] }}, '{{ c[1] }}', '{{ c[2] }}', '{{ c[3] }}', '{{ c[4] }}', '{{ c[5] }}')"
+            id="row_{{ c[0] }}">
+            <td>{{ c[0] }}</td>
+            <td>{{ c[1] }}</td>
+            <td>{{ c[2] }}</td>
+            <td>{{ c[3] }}</td>
+            <td>{{ c[4] }}</td>
+            <td>{{ c[5] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+function seleccionar(no, nombre, ap_paterno, ap_materno, sexo, telefono) {
+    document.querySelectorAll('tr').forEach(r => r.classList.remove('selected'));
+    document.getElementById('row_' + no).classList.add('selected');
+    document.getElementById('no_cliente').value = no;
+    document.getElementById('nombre').value = nombre;
+    document.getElementById('ap_paterno').value = ap_paterno;
+    document.getElementById('ap_materno').value = ap_materno;
+    document.getElementById('telefono').value = telefono;
+    if (sexo.trim() === 'M') {
+        document.getElementById('sexo_m').checked = true;
+    } else {
+        document.getElementById('sexo_f').checked = true;
+    }
+    window.scrollTo(0, 0);
+}
+</script>
+
+{% endblock %}

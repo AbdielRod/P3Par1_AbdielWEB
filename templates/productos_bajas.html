@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>BAJAS - PRODUCTOS</h2>
+
+{% if error %}
+<div class="alert-error">{{ error }}</div>
+{% endif %}
+{% if exito %}
+<div class="alert-success">{{ exito }}</div>
+{% endif %}
+
+<form method="POST" onsubmit="return confirmar()">
+    <div class="form-group">
+        <label>Producto seleccionado</label>
+        <input type="text" name="clave" id="clave" readonly
+               style="background:#2a2a2a; cursor:not-allowed;"
+               placeholder="Selecciona un producto de la tabla">
+    </div>
+    <button type="submit" class="btn btn-white">ELIMINAR</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Clave</th>
+            <th>Descripción</th>
+            <th>Precio Unit.</th>
+            <th>Existencias</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in productos %}
+        <tr onclick="seleccionar({{ p[0] }})" id="row_{{ p[0] }}">
+            <td>{{ p[0] }}</td>
+            <td>{{ p[1] }}</td>
+            <td>${{ "%.2f"|format(p[2]) }}</td>
+            <td>{{ p[3] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+function seleccionar(clave) {
+    document.querySelectorAll('tr').forEach(r => r.classList.remove('selected'));
+    document.getElementById('row_' + clave).classList.add('selected');
+    document.getElementById('clave').value = clave;
+}
+function confirmar() {
+    const clave = document.getElementById('clave').value;
+    if (!clave) { alert('Selecciona un producto de la tabla.'); return false; }
+    return confirm('¿Eliminar producto ' + clave + '? Se eliminarán también sus ventas.');
+}
+</script>
+
+{% endblock %}

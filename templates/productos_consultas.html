@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>CONSULTAS - PRODUCTOS</h2>
+
+{% if productos %}
+<table>
+    <thead>
+        <tr>
+            <th>Clave</th>
+            <th>Descripción</th>
+            <th>Precio Unit.</th>
+            <th>Existencias</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in productos %}
+        <tr>
+            <td>{{ p[0] }}</td>
+            <td>{{ p[1] }}</td>
+            <td>${{ "%.2f"|format(p[2]) }}</td>
+            <td>{{ p[3] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p style="color:#aaa;">No hay productos registrados.</p>
+{% endif %}
+
+{% endblock %}

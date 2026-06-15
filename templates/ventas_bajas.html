@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>BAJAS - VENTAS</h2>
+
+{% if error %}
+<div class="alert-error">{{ error }}</div>
+{% endif %}
+{% if exito %}
+<div class="alert-success">{{ exito }}</div>
+{% endif %}
+
+<form method="POST" onsubmit="return confirmar()">
+    <div class="form-group">
+        <label>Venta seleccionada</label>
+        <input type="text" name="folio" id="folio" readonly
+               style="background:#2a2a2a; cursor:not-allowed;"
+               placeholder="Selecciona una venta de la tabla">
+    </div>
+    <button type="submit" class="btn btn-white">ELIMINAR</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Folio</th>
+            <th>No. Cliente</th>
+            <th>Clave</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+            <th>IVA</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for v in ventas %}
+        <tr onclick="seleccionar({{ v[0] }})" id="row_{{ v[0] }}">
+            <td>{{ v[0] }}</td>
+            <td>{{ v[1] }}</td>
+            <td>{{ v[2] }}</td>
+            <td>{{ v[3] }}</td>
+            <td>${{ "%.2f"|format(v[4]) }}</td>
+            <td>${{ "%.2f"|format(v[5]) }}</td>
+            <td>${{ "%.2f"|format(v[6]) }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+function seleccionar(folio) {
+    document.querySelectorAll('tr').forEach(r => r.classList.remove('selected'));
+    document.getElementById('row_' + folio).classList.add('selected');
+    document.getElementById('folio').value = folio;
+}
+function confirmar() {
+    const folio = document.getElementById('folio').value;
+    if (!folio) { alert('Selecciona una venta de la tabla.'); return false; }
+    return confirm('¿Eliminar venta ' + folio + '?');
+}
+</script>
+
+{% endblock %}

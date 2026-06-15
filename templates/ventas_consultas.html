@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>CONSULTAS - VENTAS</h2>
+
+{% if ventas %}
+<table>
+    <thead>
+        <tr>
+            <th>Folio</th>
+            <th>No. Cliente</th>
+            <th>Clave</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+            <th>IVA</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for v in ventas %}
+        <tr>
+            <td>{{ v[0] }}</td>
+            <td>{{ v[1] }}</td>
+            <td>{{ v[2] }}</td>
+            <td>{{ v[3] }}</td>
+            <td>${{ "%.2f"|format(v[4]) }}</td>
+            <td>${{ "%.2f"|format(v[5]) }}</td>
+            <td>${{ "%.2f"|format(v[6]) }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p style="color:#aaa;">No hay ventas registradas.</p>
+{% endif %}
+
+{% endblock %}

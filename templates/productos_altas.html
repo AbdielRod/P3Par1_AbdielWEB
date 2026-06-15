@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>ALTAS - PRODUCTOS</h2>
+
+{% if error %}
+<div class="alert-error">{{ error }}</div>
+{% endif %}
+{% if exito %}
+<div class="alert-success">{{ exito }}</div>
+{% endif %}
+
+<form method="POST">
+    <div class="form-group">
+        <label>Descripción</label>
+        <input type="text" name="descripcion" placeholder="Ej: Laptop HP" required>
+    </div>
+    <div class="form-group">
+        <label>Precio Unitario</label>
+        <input type="text" name="p_unitario" placeholder="Ej: 1500.00" required>
+    </div>
+    <div class="form-group">
+        <label>Existencias</label>
+        <input type="text" name="existencias" placeholder="Ej: 10" required>
+    </div>
+    <button type="submit" class="btn btn-white">GUARDAR</button>
+</form>
+
+{% endblock %}

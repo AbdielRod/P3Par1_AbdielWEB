@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>MODIFICACIONES - VENTAS</h2>
+
+{% if error %}
+<div class="alert-error">{{ error }}</div>
+{% endif %}
+{% if exito %}
+<div class="alert-success">{{ exito }}</div>
+{% endif %}
+
+<form method="POST">
+    <div class="form-group">
+        <label>Folio</label>
+        <input type="text" name="folio" id="folio" readonly
+               style="background:#2a2a2a; cursor:not-allowed;">
+    </div>
+    <div class="form-group">
+        <label>No. Cliente</label>
+        <input type="text" name="no_cliente" id="no_cliente"
+               placeholder="Selecciona una venta de la tabla">
+    </div>
+    <div class="form-group">
+        <label>Clave Producto</label>
+        <input type="text" name="clave" id="clave">
+    </div>
+    <div class="form-group">
+        <label>Cantidad</label>
+        <input type="text" name="cantidad" id="cantidad">
+    </div>
+
+    <div class="calc-result" id="resultado">
+        <p>Subtotal: $<span id="subtotal">0.00</span></p>
+        <p>IVA (16%): $<span id="iva">0.00</span></p>
+        <p class="total">Total: $<span id="total">0.00</span></p>
+    </div>
+
+    <button type="submit" class="btn btn-white">GUARDAR MODIFICACIÓN</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Folio</th>
+            <th>No. Cliente</th>
+            <th>Clave</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+            <th>IVA</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for v in ventas %}
+        <tr onclick="seleccionar({{ v[0] }}, {{ v[1] }}, {{ v[2] }}, {{ v[3] }}, {{ v[4] }}, {{ v[5] }}, {{ v[6] }})"
+            id="row_{{ v[0] }}">
+            <td>{{ v[0] }}</td>
+            <td>{{ v[1] }}</td>
+            <td>{{ v[2] }}</td>
+            <td>{{ v[3] }}</td>
+            <td>${{ "%.2f"|format(v[4]) }}</td>
+            <td>${{ "%.2f"|format(v[5]) }}</td>
+            <td>${{ "%.2f"|format(v[6]) }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+function seleccionar(folio, no_cliente, clave, cantidad, subtotal, iva, total) {
+    document.querySelectorAll('tr').forEach(r => r.classList.remove('selected'));
+    document.getElementById('row_' + folio).classList.add('selected');
+    document.getElementById('folio').value      = folio;
+    document.getElementById('no_cliente').value = no_cliente;
+    document.getElementById('clave').value      = clave;
+    document.getElementById('cantidad').value   = cantidad;
+    document.getElementById('subtotal').textContent = parseFloat(subtotal).toFixed(2);
+    document.getElementById('iva').textContent      = parseFloat(iva).toFixed(2);
+    document.getElementById('total').textContent    = parseFloat(total).toFixed(2);
+    window.scrollTo(0, 0);
+}
+</script>
+
+{% endblock %}

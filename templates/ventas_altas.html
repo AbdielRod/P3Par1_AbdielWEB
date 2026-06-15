@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>ALTAS - VENTAS</h2>
+
+{% if error %}
+<div class="alert-error">{{ error }}</div>
+{% endif %}
+{% if exito %}
+<div class="alert-success">{{ exito }}</div>
+{% endif %}
+
+<form method="POST">
+    <div class="form-group">
+        <label>No. Cliente</label>
+        <input type="text" name="no_cliente" id="no_cliente" placeholder="Ej: 1" required>
+    </div>
+    <div class="form-group">
+        <label>Clave Producto</label>
+        <input type="text" name="clave" id="clave" placeholder="Ej: 1" required>
+    </div>
+    <div class="form-group">
+        <label>Cantidad</label>
+        <input type="text" name="cantidad" id="cantidad" placeholder="Ej: 3" required>
+    </div>
+
+    <div class="calc-result" id="resultado" style="display:none;">
+        <p>Subtotal: $<span id="subtotal">0.00</span></p>
+        <p>IVA (16%): $<span id="iva">0.00</span></p>
+        <p class="total">Total: $<span id="total">0.00</span></p>
+    </div>
+
+    <button type="button" class="btn btn-white" onclick="calcular()">CALCULAR</button>
+    <button type="submit" class="btn btn-white">GUARDAR</button>
+</form>
+
+<script>
+function calcular() {
+    const clave    = document.getElementById('clave').value.trim();
+    const cantidad = document.getElementById('cantidad').value.trim();
+    if (!clave || !cantidad) { alert('Ingresa clave y cantidad.'); return; }
+    fetch('/precio/' + clave)
+        .then(r => r.json())
+        .then(data => {
+            if (data.error) { alert('Producto no encontrado.'); return; }
+            const subtotal = data.precio * parseInt(cantidad);
+            const iva      = subtotal * 0.16;
+            const total    = subtotal + iva;
+            document.getElementById('subtotal').textContent = subtotal.toFixed(2);
+            document.getElementById('iva').textContent      = iva.toFixed(2);
+            document.getElementById('total').textContent    = total.toFixed(2);
+            document.getElementById('resultado').style.display = 'block';
+        });
+}
+</script>
+
+{% endblock %}
